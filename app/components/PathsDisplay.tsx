@@ -44,25 +44,35 @@ export default function PathsDisplay({ paths }: PathsDisplayProps) {
 
   return (
     <div>
-      <div className="flex flex-wrap items-center p-4 mt-4 border rounded shadow-md">
-        <strong className="w-20">Sort by:</strong>
-        {sortOptions.map((option) => (
-          <button
-            key={option.label}
-            className="bg-white hover:bg-gray-100 font-semibold py-1 px-4 border border-gray-400 rounded shadow ml-2"
-            onClick={() => sortPaths(option.key)}
-          >
-            {option.label}
-          </button>
-        ))}
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="ml-auto border p-2 rounded" // style it as you want
-        />
+      <div className="p-4 mt-4 border rounded shadow-md">
+        <div className="flex flex-wrap items-center justify-between">
+          <div className="flex flex-wrap items-center">
+            <strong className="block sm:inline-block mb-2 sm:mb-0 sm:mr-2">
+              Sort by:
+            </strong>
+            <div className="space-x-2">
+              {sortOptions.map((option) => (
+                <button
+                  key={option.label}
+                  className="bg-white hover:bg-gray-100 font-semibold py-1 px-4 border border-gray-400 rounded shadow mt-2 sm:mt-0"
+                  onClick={() => sortPaths(option.key)}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <input
+            type="text"
+            name="search"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="ml-auto border p-2 rounded mt-2 sm:mt-0"
+          />
+        </div>
       </div>
+
       {filteredPaths?.map((path: NewPath) => (
         <PathComponent key={`${path.path}+${path.method}`} path={path} />
       ))}

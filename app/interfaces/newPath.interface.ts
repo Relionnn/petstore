@@ -1,8 +1,8 @@
-import type { Parameter } from "./api.interface";
+import type { HttpMethod, Parameter } from "./api.interface";
 
 export interface NewPath {
   path: string;
-  method: "post" | "get" | "delete" | "put";
+  method: HttpMethod;
   tags: string;
   summary: string;
   description: string;
