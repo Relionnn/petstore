@@ -8,6 +8,11 @@ type PathsDisplayProps = {
 
 export default function PathsDisplay({ paths }: PathsDisplayProps) {
   const [sortedPaths, setSortedPaths] = useState<Path[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
 
   const sortPaths = useCallback(
     (key: keyof Path) => {
@@ -17,6 +22,14 @@ export default function PathsDisplay({ paths }: PathsDisplayProps) {
       setSortedPaths(sorted);
     },
     [paths]
+  );
+
+  const filteredPaths = sortedPaths.filter((path) =>
+    Object.values(path).some((value) =>
+      typeof value === "string"
+        ? value.toLowerCase().includes(searchTerm.toLowerCase())
+        : false
+    )
   );
 
   const sortOptions: { key: keyof Path; label: string }[] = [
@@ -42,8 +55,15 @@ export default function PathsDisplay({ paths }: PathsDisplayProps) {
             {option.label}
           </button>
         ))}
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="ml-auto border p-2 rounded" // style it as you want
+        />
       </div>
-      {sortedPaths?.map((path: Path) => (
+      {filteredPaths?.map((path: Path) => (
         <PathComponent key={`${path.path}+${path.method}`} path={path} />
       ))}
     </div>

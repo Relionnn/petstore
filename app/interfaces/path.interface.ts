@@ -8,7 +8,7 @@ export interface Path {
   produces: string[];
   parameters: Parameters[];
   responses: {
-    status: number;
+    status: string;
     description: string;
     schema: {
       type: string;

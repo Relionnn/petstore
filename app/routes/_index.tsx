@@ -25,7 +25,6 @@ export const loader: LoaderFunction = async () => {
 
 export default function Index() {
   const data = useLoaderData() as Api;
-
   const pathsArray: Path[] = [];
 
   Object.entries(data.paths).forEach(([path, methods]) => {
@@ -50,7 +49,7 @@ export default function Index() {
           })),
           responses: Object.entries(details.responses).map(
             ([status, responseDetails]) => ({
-              status: parseInt(status),
+              status: status,
               description: responseDetails.description,
               schema: responseDetails.schema
                 ? {
@@ -68,7 +67,7 @@ export default function Index() {
   });
 
   return (
-    <div className=" m-4">
+    <div className="m-4">
       <InfoDisplay info={data.info} />
       <PathsDisplay paths={pathsArray} />
     </div>

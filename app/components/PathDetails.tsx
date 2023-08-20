@@ -10,11 +10,12 @@ export default function PathDetails({ path, themeColor }: PathDisplayProps) {
     <div
       className={`p-4 ${themeColor} border-b-2 border-l-2 border-r-2 rounded-b-md`}
     >
-      <h4 className="text-xl mb-4 font-bold">Details</h4>
-      <div className="mb-4">
-        <strong>Description:</strong>
-        <p className="ml-2">{path.description}</p>
-      </div>
+      {path.description && (
+        <div className="mb-4">
+          <strong>Description:</strong>
+          <p className="ml-2">{path.description}</p>
+        </div>
+      )}
 
       <div className="mb-4">
         <strong>Operation ID:</strong>
