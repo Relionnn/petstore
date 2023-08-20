@@ -15,10 +15,10 @@ Step 2: Install the necessary npm packages:
 npm install
 ```
 
-Step 3: Bundle the code for production:
+Step 3: Run the app in development mode:
 
 ```sh
-npm run build
+npm run dev
 ```
 
 ## Deployment
