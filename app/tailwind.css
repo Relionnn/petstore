@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.marked-content a {
+  color: #3498db;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.marked-content a:hover {
+  text-decoration: underline;
+}
