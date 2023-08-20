@@ -7,7 +7,7 @@ type InfoProps = {
 
 export default function InfoDisplay({ info }: InfoProps) {
   return (
-    <div className="p-4 border rounded shadow-md relative">
+    <div className="p-4 border rounded shadow-md">
       <div className="flex items-baseline mb-4">
         <h1 className="text-4xl font-bold">{info.title}</h1>
         <span className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-full ml-2">
@@ -18,27 +18,22 @@ export default function InfoDisplay({ info }: InfoProps) {
       <div className="mb-2 marked-content">
         <Markdown value={info.description} />
       </div>
-      <p className="mb-2">
+      <div className="mb-2">
         <strong>Terms of Service:</strong>
         <a
           href={info.termsOfService}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-500 hover:underline ml-2"
+          className="text-blue-500"
         >
           {info.termsOfService}
         </a>
-      </p>
+      </div>
       <div className="mb-2">
         <strong>Contact:</strong>
-        <p>
-          <a
-            href={`mailto:${info.contact.email}`}
-            className="text-blue-500 hover:underline"
-          >
-            {info.contact.email}
-          </a>
-        </p>
+        <a href={`mailto:${info.contact.email}`} className="text-blue-500">
+          {info.contact.email}
+        </a>
       </div>
       <div>
         <strong>License:</strong>
@@ -48,7 +43,7 @@ export default function InfoDisplay({ info }: InfoProps) {
             href={info.license.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-500 hover:underline"
+            className="text-blue-500"
           >
             {info.license.url}
           </a>

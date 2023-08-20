@@ -46,7 +46,7 @@ export default function PathComponent({ path }: PathDisplayProps) {
   const roundingClass = showDetails ? "rounded-t-md" : "rounded-md";
 
   return (
-    <div className="my-4">
+    <div className="my-4 shadow-md">
       <div
         className={`flex flex-wrap justify-between items-center ${themeColor} border-2 p-3 ${roundingClass} cursor-pointer`}
         onClick={() => setShowDetails(!showDetails)}
@@ -61,7 +61,6 @@ export default function PathComponent({ path }: PathDisplayProps) {
           <h2 className="font-bold">{path.path}</h2>
           <p className="hidden md:block">{path.summary}</p>
         </div>
-
         {showDetails ? (
           <ChevronUpIcon className={`h-6 w-6 text-black-500`} />
         ) : (
