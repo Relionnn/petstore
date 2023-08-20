@@ -1,4 +1,6 @@
-export interface Path {
+import type { Parameter } from "./api.interface";
+
+export interface NewPath {
   path: string;
   method: "post" | "get" | "delete" | "put";
   tags: string;
@@ -6,27 +8,15 @@ export interface Path {
   description: string;
   operationId: string;
   produces: string[];
-  parameters: Parameters[];
+  parameters: Parameter[];
   responses: {
     status: string;
     description: string;
-    schema: {
+    schema?: {
       type: string;
-      items: {
+      items?: {
         $ref: string;
       };
     };
   }[];
-}
-
-export interface Parameters {
-  name: string;
-  in: string;
-  description: string;
-  required: true;
-  type: string;
-  items: {
-    type: string;
-  };
-  collectionFormat: string;
 }

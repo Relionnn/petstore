@@ -2,8 +2,8 @@ import type { V2_MetaFunction, LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import InfoDisplay from "~/components/InfoDisplay";
 import PathsDisplay from "~/components/PathsDisplay";
-import type { Api } from "~/interfaces/api.interface";
-import type { Parameters, Path } from "~/interfaces/path.interface";
+import type { Api, Parameter } from "~/interfaces/api.interface";
+import type { NewPath } from "~/interfaces/newPath.interface";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -25,7 +25,7 @@ export const loader: LoaderFunction = async () => {
 
 export default function Index() {
   const data = useLoaderData() as Api;
-  const pathsArray: Path[] = [];
+  const pathsArray: NewPath[] = [];
 
   Object.entries(data.paths).forEach(([path, methods]) => {
     Object.entries(methods).forEach(([method, details]) => {
@@ -38,7 +38,7 @@ export default function Index() {
           description: details.description,
           operationId: details.operationId,
           produces: details.produces,
-          parameters: details.parameters.map((param: Parameters) => ({
+          parameters: details.parameters.map((param: Parameter) => ({
             name: param.name,
             in: param.in,
             description: param.description,

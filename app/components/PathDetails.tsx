@@ -1,7 +1,7 @@
-import type { Path } from "~/interfaces/path.interface";
+import type { NewPath } from "~/interfaces/newPath.interface";
 
 type PathDisplayProps = {
-  path: Path;
+  path: NewPath;
   themeColor: string;
 };
 

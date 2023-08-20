@@ -1,13 +1,13 @@
-import type { Path } from "~/interfaces/path.interface";
+import type { NewPath } from "~/interfaces/newPath.interface";
 import PathComponent from "./PathComponent";
 import { useCallback, useEffect, useState } from "react";
 
 type PathsDisplayProps = {
-  paths: Path[];
+  paths: NewPath[];
 };
 
 export default function PathsDisplay({ paths }: PathsDisplayProps) {
-  const [sortedPaths, setSortedPaths] = useState<Path[]>([]);
+  const [sortedPaths, setSortedPaths] = useState<NewPath[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,7 +15,7 @@ export default function PathsDisplay({ paths }: PathsDisplayProps) {
   };
 
   const sortPaths = useCallback(
-    (key: keyof Path) => {
+    (key: keyof NewPath) => {
       const sorted = [...paths].sort((a, b) =>
         a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0
       );
@@ -32,7 +32,7 @@ export default function PathsDisplay({ paths }: PathsDisplayProps) {
     )
   );
 
-  const sortOptions: { key: keyof Path; label: string }[] = [
+  const sortOptions: { key: keyof NewPath; label: string }[] = [
     { key: "path", label: "Path" },
     { key: "tags", label: "Tag" },
     { key: "method", label: "Method" },
@@ -63,7 +63,7 @@ export default function PathsDisplay({ paths }: PathsDisplayProps) {
           className="ml-auto border p-2 rounded" // style it as you want
         />
       </div>
-      {filteredPaths?.map((path: Path) => (
+      {filteredPaths?.map((path: NewPath) => (
         <PathComponent key={`${path.path}+${path.method}`} path={path} />
       ))}
     </div>

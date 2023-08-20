@@ -1,4 +1,4 @@
-import type { Path } from "~/interfaces/path.interface";
+import type { Path } from "~/interfaces/newPath.interface";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import PathDetails from "./PathDetails";
