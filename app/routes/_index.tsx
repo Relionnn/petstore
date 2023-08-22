@@ -1,8 +1,10 @@
 import type { V2_MetaFunction, LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import InfoDisplay from "~/components/InfoDisplay";
+import ModelsDisplay from "~/components/ModelsDisplay";
 import PathsDisplay from "~/components/PathsDisplay";
-import type { Api, Parameter } from "~/interfaces/api.interface";
+import type { Contract, Parameter } from "~/interfaces/contract.interface";
+import { HttpMethod } from "~/interfaces/contract.interface";
 import type { NewPath } from "~/interfaces/newPath.interface";
 
 export const meta: V2_MetaFunction = () => {
@@ -23,16 +25,20 @@ export const loader: LoaderFunction = async () => {
   return data;
 };
 
+export function isMethod(method: any): method is HttpMethod {
+  return Object.values(HttpMethod).includes(method);
+}
+
 export default function Index() {
-  const data = useLoaderData() as Api;
+  const data: Contract = useLoaderData();
   const pathsArray: NewPath[] = [];
 
   Object.entries(data.paths).forEach(([path, methods]) => {
     Object.entries(methods).forEach(([method, details]) => {
-      if (["post", "get", "delete", "put"].includes(method)) {
+      if (isMethod(method)) {
         pathsArray.push({
           path,
-          method: method as "post" | "get" | "delete" | "put",
+          method: method,
           tags: details.tags.join(", "),
           summary: details.summary,
           description: details.description,
@@ -46,6 +52,7 @@ export default function Index() {
             type: param.type,
             items: param.items ? { type: param.items.type } : undefined,
             collectionFormat: param.collectionFormat,
+            schema: param.schema ? { $ref: param.schema.$ref } : undefined,
           })),
           responses: Object.entries(details.responses).map(
             ([status, responseDetails]) => ({
@@ -68,8 +75,9 @@ export default function Index() {
 
   return (
     <div className="m-4">
-      <InfoDisplay info={data.info} />
-      <PathsDisplay paths={pathsArray} />
+      {data?.info && <InfoDisplay info={data.info} />}
+      {pathsArray && <PathsDisplay paths={pathsArray} />}
+      {data.definitions && <ModelsDisplay definitions={data.definitions} />}
     </div>
   );
 }

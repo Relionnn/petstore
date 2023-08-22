@@ -73,9 +73,10 @@ export default function PathsDisplay({ paths }: PathsDisplayProps) {
         </div>
       </div>
 
-      {filteredPaths?.map((path: NewPath) => (
-        <PathComponent key={`${path.path}+${path.method}`} path={path} />
-      ))}
+      {filteredPaths.length > 0 &&
+        filteredPaths?.map((path: NewPath) => (
+          <PathComponent key={`${path.path}+${path.method}`} path={path} />
+        ))}
     </div>
   );
 }

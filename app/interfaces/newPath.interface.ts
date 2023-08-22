@@ -1,4 +1,4 @@
-import type { HttpMethod, Parameter } from "./api.interface";
+import type { HttpMethod, Parameter } from "./contract.interface";
 
 export interface NewPath {
   path: string;

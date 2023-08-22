@@ -1,4 +1,4 @@
-export interface Api {
+export interface Contract {
   swagger: string;
   info: Info;
   host: string;
@@ -40,7 +40,12 @@ export interface Paths {
     [method in HttpMethod]?: MethodDetail;
   };
 }
-export type HttpMethod = "post" | "get" | "delete" | "put";
+export enum HttpMethod {
+  post = "post",
+  get = "get",
+  delete = "delete",
+  put = "put",
+}
 
 export interface MethodDetail {
   tags: string[];
@@ -62,7 +67,12 @@ export interface MethodDetail {
   };
 }
 
-export type ParameterLocation = "body" | "query" | "header" | "path";
+export enum ParameterLocation {
+  body = "body",
+  query = "query",
+  header = "header",
+  path = "path",
+}
 
 export interface Parameter {
   in: ParameterLocation;
@@ -111,7 +121,7 @@ export interface BaseProperty {
   type: string;
   format?: string;
   description?: string;
-  example?: any;
+  example?: string;
   enum?: string[];
 }
 
