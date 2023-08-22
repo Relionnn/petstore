@@ -12,12 +12,14 @@ export default function ModelComponent({
   modelName,
   model,
 }: ModelComponentProps) {
-  const [showDetails, setShowDetails] = useState<Boolean>(false);
+  const [showDetails, setShowDetails] = useState<Boolean>(true);
+
+  const rounding = showDetails ? "rounded-t-md" : "rounded-md";
 
   return (
     <div className="my-4" id={modelName}>
       <div
-        className="flex justify-between items-center border-2 p-3 rounded-md cursor-pointer hover:bg-gray-100"
+        className={`flex justify-between items-center border-2 p-3 ${rounding} cursor-pointer hover:bg-gray-100`}
         onClick={() => setShowDetails(!showDetails)}
       >
         <h3 className="font-bold">{modelName}</h3>

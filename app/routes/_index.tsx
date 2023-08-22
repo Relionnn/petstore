@@ -44,16 +44,43 @@ export default function Index() {
           description: details.description,
           operationId: details.operationId,
           produces: details.produces,
-          parameters: details.parameters.map((param: Parameter) => ({
-            name: param.name,
-            in: param.in,
-            description: param.description,
-            required: param.required,
-            type: param.type,
-            items: param.items ? { type: param.items.type } : undefined,
-            collectionFormat: param.collectionFormat,
-            schema: param.schema ? { $ref: param.schema.$ref } : undefined,
-          })),
+          parameters: details.parameters.map((param: Parameter) => {
+            let transformedParam: Parameter = {
+              name: param.name,
+              in: param.in,
+              description: param.description,
+              required: param.required,
+              collectionFormat: param.collectionFormat,
+            };
+            if (param.type) {
+              transformedParam.type = param.type;
+            }
+            if (param.items) {
+              transformedParam.items = { type: param.items.type };
+              if (param.items.$ref) {
+                transformedParam.items.$ref = param.items.$ref;
+              }
+            }
+            if (param.schema) {
+              transformedParam.schema = {};
+              if (param.schema.$ref) {
+                transformedParam.schema.$ref = param.schema.$ref;
+              }
+              if (param.schema.type) {
+                transformedParam.schema.type = param.schema.type;
+              }
+              if (param.schema.items) {
+                transformedParam.schema.items = {};
+                if (param.schema.items.type) {
+                  transformedParam.schema.items.type = param.schema.items.type;
+                }
+                if (param.schema.items.$ref) {
+                  transformedParam.schema.items.$ref = param.schema.items.$ref;
+                }
+              }
+            }
+            return transformedParam;
+          }),
           responses: Object.entries(details.responses).map(
             ([status, responseDetails]) => ({
               status: status,

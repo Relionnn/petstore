@@ -1,4 +1,5 @@
 import type { NewPath } from "~/interfaces/newPath.interface";
+import { scrollToModel } from "~/utils/shared";
 
 type PathDisplayProps = {
   path: NewPath;
@@ -34,39 +35,46 @@ export default function PathDetails({ path, themeColor }: PathDisplayProps) {
           </ul>
         </div>
       )}
-
       {path.parameters?.length > 0 && (
         <div className="mb-4">
           <strong>Parameters:</strong>
           <ul className="list-disc list-inside">
-            {path.parameters.map((param, index) => (
-              <li key={index}>
-                {param.name === "body" && param.schema && param.schema.$ref ? (
-                  <>
-                    <strong>
-                      <a
-                        href={`#${param.schema.$ref.split("/").pop()}`}
-                        className="text-blue-500"
+            {path.parameters.map((param, index) => {
+              const isBodyWithRef =
+                param.name === "body" &&
+                ((param.schema && param.schema.$ref) ||
+                  (param.schema?.items && param.schema.items.$ref));
+
+              const refToScrollTo = param.schema?.$ref
+                ? param.schema.$ref
+                : param.schema?.items?.$ref;
+
+              return (
+                <li key={index}>
+                  <strong>
+                    {isBodyWithRef ? (
+                      <span
+                        onClick={() =>
+                          scrollToModel(refToScrollTo.split("/").pop())
+                        }
+                        className="text-blue-500 cursor-pointer"
                       >
                         {param.name} ({param.in})
-                      </a>
-                    </strong>
-                  </>
-                ) : (
-                  <strong>
-                    {param.name} ({param.in})
-                  </strong>
-                )}{" "}
-                - {param.description}
-                {param.required && (
-                  <span className="ml-2 text-red-500">(required)</span>
-                )}
-              </li>
-            ))}
+                      </span>
+                    ) : (
+                      `${param.name} (${param.in})`
+                    )}
+                  </strong>{" "}
+                  - {param.description}
+                  {param.required && (
+                    <span className="ml-2 text-red-500">(required)</span>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}
-
       {path.responses?.length > 0 && (
         <div>
           <strong>Responses:</strong>

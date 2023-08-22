@@ -48,12 +48,12 @@ export default function PathComponent({ path }: PathDisplayProps) {
     ? getBackgroundColorByMethod(path.method)
     : "bg-gray-500";
 
-  const roundingClass = showDetails ? "rounded-t-md" : "rounded-md";
+  const rounding = showDetails ? "rounded-t-md" : "rounded-md";
 
   return (
     <div className="my-4 shadow-md">
       <div
-        className={`flex flex-wrap justify-between items-center ${themeColor} border-2 p-3 ${roundingClass} cursor-pointer`}
+        className={`flex flex-wrap justify-between items-center ${themeColor} border-2 p-3 ${rounding} cursor-pointer`}
         onClick={() => setShowDetails(!showDetails)}
       >
         {path.method && (

@@ -80,11 +80,17 @@ export interface Parameter {
   description: string;
   required: boolean;
   schema?: {
-    $ref: string;
+    $ref?: string;
+    type?: string;
+    items?: {
+      type?: string;
+      $ref?: string;
+    };
   };
-  type: string;
+  type?: string;
   items?: {
-    type: string;
+    type?: string;
+    $ref?: string;
   };
   collectionFormat: string;
 }

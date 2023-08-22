@@ -2,14 +2,18 @@ import type {
   ModelProperty,
   PropertyModel,
 } from "~/interfaces/modeProperty.interface";
+import { scrollToModel } from "~/utils/shared";
 
 function describeProperty(property: PropertyModel): JSX.Element | string {
   if (property.$ref) {
     const modelName = property.$ref.split("/").pop();
     return (
-      <a href={`#${modelName}`} className="text-blue-500">
+      <span
+        onClick={() => scrollToModel(modelName)}
+        className="text-blue-500 cursor-pointer"
+      >
         Reference to {modelName}
-      </a>
+      </span>
     );
   }
 
